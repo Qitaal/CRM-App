@@ -1,5 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def home_page(request):
-    return HttpResponse("Hello World")
+from .models import Lead
+
+def lead_list(request):
+    leads = Lead.objects.all()
+    context = {
+        "leads": leads
+    }
+    return render(request,"lead_list.html", context)
