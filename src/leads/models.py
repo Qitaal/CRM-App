@@ -37,7 +37,6 @@ source = models.CharField(choices=SOURCE_CHOICES, max_length=100)
 profile_picture = models.ImageField(blank=True, null=True)
 special_files = models.FileField(blank=True, null=True)
     """
-
 class Lead(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -51,10 +50,8 @@ class Lead(models.Model):
 We don't need to specified firstname & lastname 
 becous it already in AbstractUser class
 """
-
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-
+    
     def __str__(self):
         return self.user.email
