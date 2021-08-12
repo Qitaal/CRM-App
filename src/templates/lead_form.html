@@ -7,7 +7,7 @@
     <title>CRM App</title>
 </head>
 <body>
-    <a href="/leads">Back to leads page</a>
+    <a href="{% url 'leads:lead_list' %}">Back to leads page</a>
     <hr/>
     <h1>Welcome this is lead form</h1>
     <form method="POST" action=".">
