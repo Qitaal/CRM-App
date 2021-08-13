@@ -17,7 +17,7 @@ class LandingPageView(generic.TemplateView):
 #     return render(request, 'landing.html')
 
 class LeadListView(generic.ListView):
-    template_name = 'lead_list.html'
+    template_name = 'leads/lead_list.html'
     queryset = Lead.objects.all()
     context_object_name = "leads"
 
@@ -29,7 +29,7 @@ class LeadListView(generic.ListView):
 #     return render(request,'lead_list.html', context)
 
 class LeadDetailView(generic.DetailView):
-    template_name = 'lead_detail.html'
+    template_name = 'leads/lead_detail.html'
     queryset = Lead.objects.all()
     context_object_name = "lead"
 
@@ -41,7 +41,7 @@ class LeadDetailView(generic.DetailView):
 #     return render(request, 'lead_detail.html', context)
 
 class LeadCreateView(generic.CreateView):
-    template_name = 'lead_create.html'
+    template_name = 'leads/lead_create.html'
     form_class = LeadForm
     
     def get_success_url(self):
@@ -63,7 +63,7 @@ class LeadCreateView(generic.CreateView):
 #     return render(request, 'lead_create.html', context)
 
 class LeadUpdateView(generic.UpdateView):
-    template_name = 'lead_update.html'
+    template_name = 'leads/lead_update.html'
     queryset = Lead.objects.all()
     form_class = LeadForm
 
@@ -88,7 +88,7 @@ class LeadUpdateView(generic.UpdateView):
 #     return render(request, 'lead_update.html', context)
 
 class LeadDeleteView(generic.DeleteView):
-    template_name = 'lead_delete.html'
+    template_name = 'leads/lead_delete.html'
     queryset = Lead.objects.all()
 
     def get_success_url(self):
