@@ -39,13 +39,5 @@
       </div>
     </div>
   </section>
-
-    <a href="{% url 'leads:lead_list' %}">Back to leads page</a>
-    <hr/>
-    <h1>Welcome this is {{ lead }} detail informations</h1>
-    {{ lead.first_name }} age is {{ lead.age }} y.o.
-    <hr/>
-    <a href="{% url 'leads:lead_update' lead.id %}">Update</a>
-    <a href="{% url 'leads:lead_delete' lead.id %}">Delete</a>
-    
+      
 {% endblock content %}
