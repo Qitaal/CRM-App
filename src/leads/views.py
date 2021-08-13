@@ -4,6 +4,9 @@ from django.http import HttpResponse
 from .models import Lead
 from .forms import LeadForm
 
+def landing_page(request):
+    return render(request, 'landing.html')
+
 def lead_list(request):
     leads = Lead.objects.all()
     context = {
@@ -31,7 +34,7 @@ def lead_create(request):
     context = {
         'form': form
     }
-    return render(request, 'lead_form.html', context)
+    return render(request, 'lead_create.html', context)
 
 def lead_update(request, id):
     lead = Lead.objects.get(id=id)
@@ -42,12 +45,13 @@ def lead_update(request, id):
 
         if form.is_valid():
             form.save()
-            return redirect('/leads')
+            return redirect('/leads/{}'.format(id))
     
     context = {
-        'form': form
+        'form': form,
+        'lead': lead,
     }
-    return render(request, 'lead_form.html', context)
+    return render(request, 'lead_update.html', context)
 
 def lead_delete(request, id):
     lead = Lead.objects.get(id=id)
