@@ -139,3 +139,7 @@ AUTH_USER_MODEL = 'leads.User'
 # In production use smtp (protocol to send email)
 # 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGIN_REDIRECT_URL = '/leads'
+
+LOGOUT_REDIRECT_URL = '/login'

@@ -1,15 +1,23 @@
+import django
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.views import generic
 
 from .models import Lead
-from .forms import LeadForm
+from .forms import LeadForm, CustomUserCreationForm
 
 '''
 Using Class Based View can reduce our code. This class provide various kinds of View 
 like Create, Update, Delete, etc. Import it from django.views.generic.
 '''
+
+class SignupView(generic.CreateView):
+    template_name = 'registration/signup.html'
+    form_class = CustomUserCreationForm
+
+    def get_success_url(self):
+        return reverse('login')
 
 class LandingPageView(generic.TemplateView):
     template_name = 'landing.html'
