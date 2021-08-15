@@ -29,8 +29,20 @@ class LandingPageView(generic.TemplateView):
 
 class LeadListView(LoginRequiredMixin, generic.ListView):
     template_name = 'leads/lead_list.html'
-    queryset = Lead.objects.all()
     context_object_name = "leads"
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_organisor and user.is_agent:
+            queryset = Lead.objects.all()
+        # initial queryset of leads for the entire organisation
+        elif user.is_organisor:
+            queryset = Lead.objects.filter(organization=user.userprofile)
+        else:
+            queryset = Lead.objects.filter(organization=user.agent.organization)
+            # filter for the agent that is logged in
+            queryset = queryset.filter(agent__user=user)
+        return queryset
 
 # def lead_list(request):
 #     leads = Lead.objects.all()
@@ -84,12 +96,16 @@ class LeadCreateView(OrganisorLoginRequiredMixin, generic.CreateView):
 
 class LeadUpdateView(OrganisorLoginRequiredMixin, generic.UpdateView):
     template_name = 'leads/lead_update.html'
-    queryset = Lead.objects.all()
     context_object_name = "lead"
     form_class = LeadForm
 
     def get_success_url(self):
         return reverse('leads:lead_list')
+    
+    def get_queryset(self):
+        user = self.request.user
+        # initial queryset of leads for the entire organisation
+        return Lead.objects.filter(organization=user.userprofile)
     
 # def lead_update(request, id):
 #     lead = Lead.objects.get(id=id)
@@ -110,10 +126,14 @@ class LeadUpdateView(OrganisorLoginRequiredMixin, generic.UpdateView):
 
 class LeadDeleteView(OrganisorLoginRequiredMixin, generic.DeleteView):
     template_name = 'leads/lead_delete.html'
-    queryset = Lead.objects.all()
 
     def get_success_url(self):
         return reverse('leads:lead_list')
+
+    def get_queryset(self):
+        user = self.request.user
+        # initial queryset of leads for the entire organisation
+        return Lead.objects.filter(organization=user.userprofile)
 
 # def lead_delete(request, id):
 #     lead = Lead.objects.get(id=id)
