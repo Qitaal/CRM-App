@@ -9,9 +9,12 @@
                 <div>
                     <h1 class="text-4xl text-grey-800">Leads</h1>
                 </div>
+                {% if request.user.is_organisor %}
                 <div>
                     <a class="text-grey-500 hover:text-blue-500" href="{% url 'leads:lead_create' %}">Create a new Lead</a>
                 </div>
+                {% endif %}
+                
             </div>
 
             <div class="flex flex-wrap -m-4">

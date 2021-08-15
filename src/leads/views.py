@@ -7,6 +7,7 @@ from django.views import generic
 
 from .models import Lead
 from .forms import LeadForm, CustomUserCreationForm
+from agents.mixins import OrganisorLoginRequiredMixin
 
 '''
 Using Class Based View can reduce our code. This class provide various kinds of View 
@@ -50,7 +51,7 @@ class LeadDetailView(LoginRequiredMixin, generic.DetailView):
 #     }
 #     return render(request, 'lead_detail.html', context)
 
-class LeadCreateView(LoginRequiredMixin, generic.CreateView):
+class LeadCreateView(OrganisorLoginRequiredMixin, generic.CreateView):
     template_name = 'leads/lead_create.html'
     form_class = LeadForm
     
@@ -81,7 +82,7 @@ class LeadCreateView(LoginRequiredMixin, generic.CreateView):
 #     }
 #     return render(request, 'lead_create.html', context)
 
-class LeadUpdateView(LoginRequiredMixin, generic.UpdateView):
+class LeadUpdateView(OrganisorLoginRequiredMixin, generic.UpdateView):
     template_name = 'leads/lead_update.html'
     queryset = Lead.objects.all()
     context_object_name = "lead"
@@ -107,7 +108,7 @@ class LeadUpdateView(LoginRequiredMixin, generic.UpdateView):
 #     }
 #     return render(request, 'lead_update.html', context)
 
-class LeadDeleteView(generic.DeleteView):
+class LeadDeleteView(OrganisorLoginRequiredMixin, generic.DeleteView):
     template_name = 'leads/lead_delete.html'
     queryset = Lead.objects.all()
 
