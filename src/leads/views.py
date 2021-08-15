@@ -84,6 +84,7 @@ class LeadCreateView(LoginRequiredMixin, generic.CreateView):
 class LeadUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'leads/lead_update.html'
     queryset = Lead.objects.all()
+    context_object_name = "lead"
     form_class = LeadForm
 
     def get_success_url(self):
